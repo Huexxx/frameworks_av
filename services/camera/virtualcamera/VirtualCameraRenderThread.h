@@ -182,7 +182,7 @@ class VirtualCameraRenderThread {
   std::mutex mLock;
   std::deque<std::unique_ptr<ProcessCaptureRequestTask>> mQueue GUARDED_BY(mLock);
   std::condition_variable mCondVar;
-  volatile bool mPendingExit GUARDED_BY(mLock);
+  volatile bool GUARDED_BY(mLock) mPendingExit = false;
 
   // EGL helpers - constructed and accessed only from rendering thread.
   std::unique_ptr<EglDisplayContext> mEglDisplayContext;
